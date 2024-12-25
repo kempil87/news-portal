@@ -79,7 +79,9 @@ export default function Home({html}: InferGetServerSidePropsType<typeof getServe
                             transition: {duration: 0.35},
                             translateY: 0,
                         }}
-                        className='rounded-2xl overflow-hidden shadow-2xl bg-[#27272a]' key={article.id}>
+                        className='rounded-2xl overflow-hidden shadow-2xl bg-[#27272a]'
+                        key={article.id}
+                    >
                         <Image
                             blurDataURL={'/logo.png'}
                             width={640}
