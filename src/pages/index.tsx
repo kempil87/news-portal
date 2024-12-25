@@ -1,6 +1,6 @@
 import {InferGetServerSidePropsType} from "next";
 import {useEffect, useState} from "react";
-import {motion} from 'framer-motion';
+import {AnimatePresence, motion} from 'framer-motion';
 import Image from "next/image";
 import {Head} from "next/document";
 import Script from "next/script";
@@ -31,6 +31,7 @@ export default function Home({html}: InferGetServerSidePropsType<typeof getServe
     const [articles, setArticles] = useState<Article[]>([])
 
     const [page, setPage] = useState(1)
+    const [visible, setVisible] = useState(false)
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -90,6 +91,7 @@ export default function Home({html}: InferGetServerSidePropsType<typeof getServe
         }
     }
 
+
     useEffect(() => {
         buildArticles(html)
 
@@ -100,22 +102,45 @@ export default function Home({html}: InferGetServerSidePropsType<typeof getServe
 
     return (
         <main className='max-w-cnt mx-auto px-4'>
+
+            <div
+                className={`fixed z-50 transition-all bg-background inset-y-0 right-0 w-[90dvw] ${visible ? 'translate-x-0' : 'translate-x-full'}`}
+            >
+                <div className='p-4 font-medium text-lg flex items-center justify-between'>
+                    А тут ни ху я
+
+                    <button
+                        onClick={() => setVisible(false)}
+                        className='active:scale-95 justify-center flex items-center gap-2 hover:opacity-90 bg-[#27272a] text-white rounded-xl shadow transition-all size-8'
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg"  width="20"
+                             height="20" className="g-icon" fill="currentColor" stroke="none" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
+                                <path fill="currentColor" fill-rule="evenodd"
+                                      d="M3.47 3.47a.75.75 0 0 1 1.06 0L8 6.94l3.47-3.47a.75.75 0 1 1 1.06 1.06L9.06 8l3.47 3.47a.75.75 0 1 1-1.06 1.06L8 9.06l-3.47 3.47a.75.75 0 0 1-1.06-1.06L6.94 8 3.47 4.53a.75.75 0 0 1 0-1.06"
+                                      clip-rule="evenodd"></path>
+                            </svg>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
             <div className='py-4 flex justify-between items-center'>
                 <div className='size-14 rounded-full relative overflow-hidden'>
                     <Image src={'/logo.png'} alt='logo' fill objectFit='cover'/>
                 </div>
 
-                <div>
+                <button onClick={() => setVisible(true)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="22"
                          height="22" className="hover:opacity-70 transition-all duration-300 cursor-pointer"
                          fill="currentColor" stroke="none" aria-hidden="true">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
-                            <path fill="currentColor" fillRule="evenodd"
-                                  d="M10 4.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0m1.5 0a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-9 8c0-.204.22-.809 1.32-1.459C4.838 10.44 6.32 10 8 10s3.162.44 4.18 1.041c1.1.65 1.32 1.255 1.32 1.459a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1m5.5-4c-3.85 0-7 2-7 4A2.5 2.5 0 0 0 3.5 15h9a2.5 2.5 0 0 0 2.5-2.5c0-2-3.15-4-7-4"
-                                  clipRule="evenodd"></path>
+                            <path fill="currentColor" fill-rule="evenodd"
+                                  d="M1.25 3.25A.75.75 0 0 1 2 2.5h12A.75.75 0 0 1 14 4H2a.75.75 0 0 1-.75-.75m0 4.75A.75.75 0 0 1 2 7.25h12a.75.75 0 0 1 0 1.5H2A.75.75 0 0 1 1.25 8M2 12a.75.75 0 0 0 0 1.5h12a.75.75 0 0 0 0-1.5z"
+                                  clip-rule="evenodd"></path>
                         </svg>
                     </svg>
-                </div>
+                </button>
             </div>
 
             <div className='flex flex-col gap-6 mb-16'>
@@ -178,8 +203,9 @@ export default function Home({html}: InferGetServerSidePropsType<typeof getServe
                     >
                         {isLoading ? (
                             <>
-                                Загрузка... <svg className='animate-spin' xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                  fill="currentColor" stroke="none" aria-hidden="true">
+                                Загрузка... <svg className='animate-spin' xmlns="http://www.w3.org/2000/svg" width="20"
+                                                 height="20"
+                                                 fill="currentColor" stroke="none" aria-hidden="true">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
                                     <path fill="currentColor" fill-rule="evenodd"
                                           d="M8 1.5a6.5 6.5 0 0 1 6.445 5.649.75.75 0 1 1-1.488.194A5.001 5.001 0 0 0 4.43 4.5h1.32a.75.75 0 0 1 0 1.5h-3A.75.75 0 0 1 2 5.25v-3a.75.75 0 1 1 1.5 0v1.06A6.48 6.48 0 0 1 8 1.5m5.25 13a.75.75 0 0 0 .75-.75v-3a.75.75 0 0 0-.75-.75h-3a.75.75 0 1 0 0 1.5h1.32a5.001 5.001 0 0 1-8.528-2.843.75.75 0 1 0-1.487.194 6.501 6.501 0 0 0 10.945 3.84v1.059c0 .414.336.75.75.75"
