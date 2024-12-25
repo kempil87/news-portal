@@ -172,7 +172,7 @@ export default function Home({html}: InferGetServerSidePropsType<typeof getServe
                 <div className='fixed bottom-3.5 inset-x-0 flex justify-center'>
                     <button
                         onClick={nextPage}
-                        className='active:scale-95 justify-center flex items-center gap-2 hover:opacity-90 bg-[#27272a] text-white font-semibold text-sm px-4 py-2 rounded-xl shadow transition-all max-w-float-button w-full'
+                        className='active:scale-95 justify-center flex items-center gap-2 hover:opacity-90 bg-[#27272a] text-white font-semibold text-sm px-4 py-2 rounded-xl shadow transition-all max-w-float-button max-md:max-w-[85vw] h-11 w-full'
                     >
                         {isLoading ? (
                             <>
