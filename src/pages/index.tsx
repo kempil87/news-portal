@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {motion} from 'framer-motion';
 import Image from "next/image";
 import {Head} from "next/document";
+import Script from "next/script";
 
 export type Article = {
     title: string;
@@ -97,15 +98,8 @@ export default function Home({html}: InferGetServerSidePropsType<typeof getServe
         }
     }, [html]);
 
-    useEffect(() => {
-        Telegram.WebApp.expand();
-    }, []);
-
     return (
         <main className='max-w-cnt mx-auto px-4'>
-            <Head>
-                <script src="https://telegram.org/js/telegram-web-app.js"></script>
-            </Head>
             <div className='py-4 flex justify-between items-center'>
                 <div className='size-14 rounded-full relative overflow-hidden'>
                     <Image src={'/logo.png'} alt='logo' fill objectFit='cover'/>
