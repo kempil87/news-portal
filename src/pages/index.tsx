@@ -80,7 +80,7 @@ export default function Home({html}: InferGetServerSidePropsType<typeof getServe
                             translateY: 0,
                         }}
                         className='rounded-2xl overflow-hidden shadow-2xl bg-[#27272a]' key={article.id}>
-                        <Image width={6400} height={300} src={article.banner} alt={article.title}/>
+                        <Image blurDataURL={'/logo.png'} width={6400} height={300} src={article.banner} alt={article.title}/>
                         <div className="p-4 flex flex-col gap-2">
                             <span className='font-bold'> {article.title}</span>
                             <p className='text-sm' dangerouslySetInnerHTML={{__html: article.content}}/>
