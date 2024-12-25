@@ -13,7 +13,6 @@ export type Article = {
 export default function Home({html}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const [articles, setArticles] = useState<Article[]>([])
 
-
     useEffect(() => {
 
         const domParser = new DOMParser()
@@ -22,14 +21,20 @@ export default function Home({html}: InferGetServerSidePropsType<typeof getServe
 
         const articles = doc.querySelectorAll('.article-news')
 
-        const result = []
+        if (!articles) return
+
+        const result:Article[] = []
 
         for (const article of articles) {
-            const title = article.querySelector('.article-news__title a').getAttribute('title')
-            const banner = (article.querySelector('.article-news__img') as HTMLImageElement).getAttribute('data-src')
-            const id = Number.parseInt(article.id) || Math.random()
-            const content = article.querySelector('.article-news__subtitle a').innerHTML
+            if (!article) continue
 
+            const title = article?.querySelector('.article-news__title a')?.getAttribute('title')
+            const banner = (article?.querySelector('.article-news__img') as HTMLImageElement).getAttribute('data-src')
+            const id = Number.parseInt(article?.id) || Math.random()
+            //@ts-ignore
+            const content = article?.querySelector('.article-news__subtitle a').innerHTML as string
+
+            if (!title || !banner || !content) continue
             result.push({
                 title,
                 banner,
@@ -39,7 +44,7 @@ export default function Home({html}: InferGetServerSidePropsType<typeof getServe
         }
 
         setArticles(result)
-    }, []);
+    }, [html]);
 
     return (
         <main className='max-w-cnt mx-auto px-4'>
@@ -88,9 +93,9 @@ export default function Home({html}: InferGetServerSidePropsType<typeof getServe
                                    <svg viewBox="0 0 16 16" className="transition-all" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         fill="currentColor"
                                         stroke="none" aria-hidden="true">
-                                       <path fill="currentColor" fill-rule="evenodd"
+                                       <path fill="currentColor" fillRule="evenodd"
                                              d="m8 9.524.976.837 2.988 2.56a.325.325 0 0 0 .536-.246V4.5A1.5 1.5 0 0 0 11 3H5a1.5 1.5 0 0 0-1.5 1.5v8.175a.325.325 0 0 0 .536.247l2.988-2.56zM14 4.5a3 3 0 0 0-3-3H5a3 3 0 0 0-3 3v8.175a1.825 1.825 0 0 0 3.013 1.386L8 11.5l2.987 2.56A1.825 1.825 0 0 0 14 12.676z"
-                                             clip-rule="evenodd"></path>
+                                             clipRule="evenodd"></path>
                                    </svg>
 
                                    <span className='font-semibold text-xs transition-all'>
