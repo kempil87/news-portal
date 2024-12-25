@@ -11,7 +11,8 @@ export default {
     extend: {
       spacing: {
         ...spacing,
-        cnt:'640px'
+        cnt:'640px',
+        'float-button':'580px'
       },
       colors: {
         background: "var(--background)",
