@@ -48,8 +48,8 @@ export default function Home({html}: InferGetServerSidePropsType<typeof getServe
 
     return (
         <main className='max-w-cnt mx-auto px-4'>
-            <div className='py-6 flex justify-between items-center'>
-                <div className='size-16 rounded-full relative overflow-hidden'>
+            <div className='py-4 flex justify-between items-center'>
+                <div className='size-14 rounded-full relative overflow-hidden'>
                     <Image src={'/logo.png'} alt='logo' fill objectFit='cover'/>
                 </div>
 
@@ -72,7 +72,7 @@ export default function Home({html}: InferGetServerSidePropsType<typeof getServe
                         viewport={{once: true}}
                         initial={{
                             opacity: 0,
-                            translateY: '100%',
+                            translateY: '30%',
                         }}
                         whileInView={{
                             opacity: 1,
