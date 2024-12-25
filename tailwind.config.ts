@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import {spacing} from 'tailwindcss/defaultTheme'
 
 export default {
   content: [
@@ -8,9 +9,14 @@ export default {
   ],
   theme: {
     extend: {
+      spacing: {
+        ...spacing,
+        cnt:'640px'
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        primary: "var(--primary)",
       },
     },
   },
